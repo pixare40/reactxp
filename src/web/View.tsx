@@ -273,6 +273,7 @@ export class View extends ViewBase<Types.ViewProps, {}> {
             onFocus: this.props.onFocus,
             onBlur: this.props.onBlur,
             onKeyDown: this.props.onKeyPress,
+            className: this.props.className
         };
 
         if (this.props.ignorePointerEvents) {

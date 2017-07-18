@@ -73,7 +73,7 @@ export class WebView extends RX.ViewBase<Types.WebViewProps, WebViewState> {
 
         // width 100% is needed for Edge - it doesn't grow iframe. Resize needs to be done with wrapper
         return (
-            <View style={ _styles.webViewContainer }>
+            <View style={ _styles.webViewContainer } className={ this.props.className }>
                 <iframe
                     ref='iframe'
                     name={ this.state.webFrameIdentifier }

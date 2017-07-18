@@ -592,6 +592,9 @@ export interface ViewProps extends ViewPropsShared {
     onResponderEnd?: (e: React.TouchEvent) => void;
     onResponderTerminate?: (e: React.SyntheticEvent) => void;
     onResponderTerminationRequest?: (e: React.SyntheticEvent) => boolean;
+
+    //Web-only for styling views using CSS when needed
+    className?: string;
 }
 
 export interface AnimatedViewProps extends ViewPropsShared {
@@ -884,6 +887,7 @@ export interface WebViewProps extends CommonStyledProps<WebViewStyleRuleSet> {
 
     // Web only; overrides javaScriptEnabled if used
     sandbox?: WebViewSandboxMode;
+    className?: string;
 }
 
 export type PopupPosition  = 'top' | 'right' | 'bottom' | 'left';
