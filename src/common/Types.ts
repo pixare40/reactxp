@@ -12,7 +12,7 @@ import React = require('react');
 // Use only for type data
 import RX = require('./Interfaces');
 
-export { SubscribableEvent, SubscriptionToken } from './SubscribableEvent';
+export { default as SubscribableEvent, SubscriptionToken } from 'subscribableevent';
 
 export type ReactNode = React.ReactNode;
 
@@ -84,7 +84,7 @@ export abstract class AnimatedValue implements RX.IAnimatedValue {
         // No-op
     }
     abstract setValue(value: number): void;
-    abstract addListener(callback: any): number;
+    abstract addListener(callback: any): string;
     abstract removeListener(id: string): void;
     abstract removeAllListeners(): void;
     abstract interpolate(config: any): AnimatedValue;
@@ -338,6 +338,10 @@ export interface CommonAccessibilityProps {
 
     // Desktop only.
     tabIndex?: number;
+
+    // iOS only.
+    accessibilityActions?: string[];
+    onAccessibilityAction?: (e: SyntheticEvent) => void;
 }
 
 // Auto, Yes, No - iOS & Android.
@@ -672,7 +676,7 @@ export enum PreferredPanGesture {
     Vertical
 }
 
-export interface GestureViewProps extends CommonStyledProps<ViewStyleRuleSet> {
+export interface GestureViewProps extends CommonStyledProps<ViewStyleRuleSet>, CommonAccessibilityProps {
     // Gestures and attributes that apply only to touch inputs
     onPinchZoom?: (gestureState: MultiTouchGestureState) => void;
     onRotate?: (gestureState: MultiTouchGestureState) => void;
@@ -931,6 +935,11 @@ export interface PopupOptions {
     // Value = true  => Calling Popup.show will show the popup. A subsequent call, will hide the popup, and so on.
     // Value = false or undefined (default)  => Calling Popup.show will always show the popup.
      dismissIfShown?: boolean;
+
+     // Prevents the front-most popup from closing if the user clicks or taps
+     // outside of it. It will still close if the anchor is unmounted or if
+     // dismiss is explicitly called.
+     preventDismissOnPress?: boolean;
 }
 
 //
@@ -1131,6 +1140,7 @@ export interface KeyboardEvent extends SyntheticEvent {
     altKey: boolean;
     shiftKey: boolean;
     keyCode: number;
+    metaKey: boolean;
 }
 
 //
